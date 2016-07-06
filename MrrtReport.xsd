@@ -22,19 +22,12 @@
 	</xs:simpleType>
 
 	<!-- Document metadata ================================================= -->
-<!-- 					<xs:sequence>
-						<xs:element ref="title" />
-						<xs:group ref="metaDataElements" minOccurs="0" maxOccurs="unbounded" />
-						<xs:element ref="base" minOccurs="0" />
-						<xs:group ref="metaDataElements" minOccurs="0" maxOccurs="unbounded" />
-					</xs:sequence>
-					<xs:sequence>
-						<xs:element ref="base" />
-						<xs:group ref="metaDataElements" minOccurs="0" maxOccurs="unbounded" />
-						<xs:element ref="title" />
-						<xs:group ref="metaDataElements" minOccurs="0" maxOccurs="unbounded" />
-					</xs:sequence>
- -->
+	<!-- <xs:sequence> <xs:element ref="title" /> <xs:group ref="metaDataElements" 
+		minOccurs="0" maxOccurs="unbounded" /> <xs:element ref="base" minOccurs="0" 
+		/> <xs:group ref="metaDataElements" minOccurs="0" maxOccurs="unbounded" /> 
+		</xs:sequence> <xs:sequence> <xs:element ref="base" /> <xs:group ref="metaDataElements" 
+		minOccurs="0" maxOccurs="unbounded" /> <xs:element ref="title" /> <xs:group 
+		ref="metaDataElements" minOccurs="0" maxOccurs="unbounded" /> </xs:sequence> -->
 	<xs:element name="head">
 		<xs:complexType>
 			<!-- XERCES: cos-nonambig: link violate "Unique Particle Attribution" -->
@@ -95,6 +88,7 @@
 			<xs:element ref="link" />
 			<xs:element ref="style" />
 			<xs:element ref="meta" />
+			<xs:element ref="script" />
 		</xs:choice>
 	</xs:group>
 
@@ -188,6 +182,33 @@
 	<xs:simpleType name="scoped">
 		<xs:restriction base="xs:token">
 			<xs:enumeration value="scoped" />
+			<xs:enumeration value="" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- Scripting ========================================================= -->
+
+	<xs:element name="script">
+		<xs:complexType mixed="true">
+			<xs:attributeGroup ref="globalAttributeGroup" />
+			<xs:attribute name="type" type="mimeType" default="text/javascript" />
+			<xs:attribute name="src" type="uri" />
+			<xs:attribute name="defer" type="defer" />
+			<xs:attribute name="async" type="async" />
+			<xs:attribute name="charset" type="charset" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:simpleType name="defer">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="defer" />
+			<xs:enumeration value="" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="async">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="async" />
 			<xs:enumeration value="" />
 		</xs:restriction>
 	</xs:simpleType>
