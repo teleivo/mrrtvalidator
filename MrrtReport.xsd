@@ -86,6 +86,7 @@
 		</xs:restriction>
 	</xs:simpleType>
 
+	<!-- TODO head shall only contain one script element -->
 	<xs:group name="metaDataElements">
 		<xs:choice>
 			<xs:element ref="link" />
@@ -191,8 +192,24 @@
 
 	<!-- Scripting ========================================================= -->
 
+	<!-- mixed=true necessary -->
 	<xs:element name="script">
 		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element name="template_attributes" minOccurs="1"
+					maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:group ref="otherMetaDataElements" minOccurs="0"
+								maxOccurs="unbounded" />
+							<xs:element ref="coding_schemes" minOccurs="0"
+								maxOccurs="1" />
+							<xs:element ref="coded_content" minOccurs="1"
+								maxOccurs="1" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
 			<xs:attribute name="type">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -203,7 +220,85 @@
 		</xs:complexType>
 	</xs:element>
 
+	<xs:group name="otherMetaDataElements">
+		<xs:choice>
+			<xs:element ref="top_level_flag" />
+			<xs:element ref="status" />
+			<xs:element ref="user_list" />
+			<xs:element ref="provider_group_list" />
+		</xs:choice>
+	</xs:group>
 
+	<xs:element name="top_level_flag" type="boolean" />
+
+	<xs:element name="status">
+		<xs:simpleType>
+			<xs:restriction base="xs:NMTOKEN">
+				<xs:enumeration value="DRAFT" />
+				<xs:enumeration value="ACTIVE" />
+				<xs:enumeration value="RETIRED" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:element name="user_list" type="string" />
+
+	<xs:element name="provider_group_list" type="string" />
+
+	<xs:element name="coding_schemes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="coding_scheme" minOccurs="1" maxOccurs="unbounded" />
+				<xs:element ref="term" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="coding_scheme">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required" />
+			<xs:attribute name="designator" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<!-- TODO think about: 1. limiting coding scheme names to list of well-known 
+		coding scheme designators, see http://dicom.nema.org/medical/dicom/current/output/html/part16.html#chapter_8 
+		2. restricting designator with OID regex -->
+
+	<xs:element name="term">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="code" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="code">
+		<xs:complexType>
+			<xs:attribute name="meaning" type="xs:string" use="required" />
+			<xs:attribute name="scheme" type="xs:string" use="required" />
+			<xs:attribute name="value" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="coded_content">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="coding_schemes" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="entry" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="entry">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="term" minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="ORIGTXT" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
 
 	<xs:simpleType name="defer">
 		<xs:restriction base="xs:token">
