@@ -4,7 +4,11 @@
 
 	<xs:annotation>
 		<xs:documentation>
-			This schema describes an MRRT report template.
+			This schema describes an MRRT report template as
+			defined by the IHE
+			Radiology Technical Framework Supplement Management
+			of Radiology
+			Report Templates (MRRT).
 		</xs:documentation>
 	</xs:annotation>
 
