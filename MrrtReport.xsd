@@ -204,6 +204,7 @@
 								maxOccurs="unbounded" />
 							<xs:element ref="coding_schemes" minOccurs="0"
 								maxOccurs="1" />
+							<xs:element ref="term" minOccurs="0" maxOccurs="unbounded" />
 							<xs:element ref="coded_content" minOccurs="1"
 								maxOccurs="1" />
 						</xs:sequence>
@@ -222,14 +223,14 @@
 
 	<xs:group name="otherMetaDataElements">
 		<xs:choice>
-			<xs:element ref="top_level_flag" />
+			<xs:element ref="top-level-flag" />
 			<xs:element ref="status" />
-			<xs:element ref="user_list" />
-			<xs:element ref="provider_group_list" />
+			<xs:element ref="user-list" />
+			<xs:element ref="provider-group-list" />
 		</xs:choice>
 	</xs:group>
 
-	<xs:element name="top_level_flag" type="boolean" />
+	<xs:element name="top-level-flag" type="boolean" />
 
 	<xs:element name="status">
 		<xs:simpleType>
@@ -241,15 +242,14 @@
 		</xs:simpleType>
 	</xs:element>
 
-	<xs:element name="user_list" type="string" />
+	<xs:element name="user-list" type="string" />
 
-	<xs:element name="provider_group_list" type="string" />
+	<xs:element name="provider-group-list" type="string" />
 
 	<xs:element name="coding_schemes">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="coding_scheme" minOccurs="1" maxOccurs="unbounded" />
-				<xs:element ref="term" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
