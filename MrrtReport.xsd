@@ -193,14 +193,17 @@
 
 	<xs:element name="script">
 		<xs:complexType mixed="true">
-			<xs:attributeGroup ref="globalAttributeGroup" />
-			<xs:attribute name="type" type="mimeType" default="text/javascript" />
-			<xs:attribute name="src" type="uri" />
-			<xs:attribute name="defer" type="defer" />
-			<xs:attribute name="async" type="async" />
-			<xs:attribute name="charset" type="charset" />
+			<xs:attribute name="type">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="text/xml" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
+
+
 
 	<xs:simpleType name="defer">
 		<xs:restriction base="xs:token">
